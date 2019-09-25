@@ -1,0 +1,35 @@
+// 黑色字体颜色
+@textColor-primary: #333;
+
+// 主题颜色
+@primary-color: #31C27C;
+@active-color: #31C27C;
+@backgroundColor-primary: #f2f3f4;
+
+// 边框颜色
+@borderColor-primary: #e4e4e4;
+
+@fs-small-s: 10px;
+@fs-small: 12px;
+@fs-medium: 14px;
+@fs-medium-x: 16px;
+@fs-large: 18px;
+@fs-large-x: 22px;
+
+// 超出几行省略号
+.mul-ellipsis(@lines, @color: #666){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  color: @color;
+  -webkit-line-clamp: @lines;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
