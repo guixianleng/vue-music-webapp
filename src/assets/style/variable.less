@@ -1,13 +1,14 @@
 // 黑色字体颜色
-@textColor-primary: #333;
+@text-color: #333;
 
 // 主题颜色
-@primary-color: #31C27C;
+@color-theme: #31C27C;
 @active-color: #31C27C;
-@backgroundColor-primary: #f2f3f4;
+@background-color: #FFF;
+@color-white: #FFF;
 
 // 边框颜色
-@borderColor-primary: #e4e4e4;
+@border-color: #e4e4e4;
 
 @fs-small-s: 10px;
 @fs-small: 12px;
@@ -15,6 +16,18 @@
 @fs-medium-x: 16px;
 @fs-large: 18px;
 @fs-large-x: 22px;
+
+// 颜色定义规范
+@color-background: #222;
+@color-background-d: rgba(0, 0, 0, 0.3);
+@color-highlight-background: #333;
+@color-dialog-background: #666;
+@color-theme-d: rgba(255, 205, 49, 0.5);
+@color-sub-theme: #d93f30;
+@color-text: #fff;
+@color-text-d: rgba(255, 255, 255, 0.3);
+@color-text-l: rgba(255, 255, 255, 0.5);
+@color-text-ll: rgba(255, 255, 255, 0.8);
 
 // 超出几行省略号
 .mul-ellipsis(@lines, @color: #666){
@@ -32,4 +45,24 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+// 不换行
+.no-wrap() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// 扩展点击区域
+.extend-click() {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
 }

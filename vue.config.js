@@ -54,8 +54,14 @@ module.exports = {
     hot: true,
     port: 9530,
     https: false,
-    hotOnly: false
-    // proxy: ''
+    hotOnly: false,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:30003',
+        changeOrigin: true,
+        pathRewrite: { '^/api': 'api' }
+      }
+    }
   },
   css: {
     loaderOptions: {
