@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload' // 懒加载图片插件
+import animated from 'animate.css'
 
 import './assets/style/index.less'
 
@@ -15,6 +16,8 @@ fastclick.attach(document.body)
 Vue.use(VueLazyload, {
   loading: require('assets/images/default.png')
 })
+
+Vue.use(animated)
 
 new Vue({
   router,

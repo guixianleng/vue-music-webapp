@@ -33,6 +33,7 @@ module.exports = {
           '@': resolve('./src'),
           'api': resolve('./src/api'),
           'assets': resolve('./src/assets'),
+          'baseUI': resolve('./src/baseUI'),
           'components': resolve('./src/components'),
           'utils': resolve('./src/utils'),
           'views': resolve('./src/views')

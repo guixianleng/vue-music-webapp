@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import Slider from '../../baseUI/Slider'
-import Scroll from '../../baseUI/Scroll'
+import Slider from 'baseUI/Slider'
+import Scroll from 'baseUI/Scroll'
 import { getRecommend, getDiscList } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 

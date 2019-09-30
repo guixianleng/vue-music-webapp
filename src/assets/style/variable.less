@@ -19,7 +19,7 @@
 
 // 颜色定义规范
 @color-background: #222;
-@color-background-d: rgba(0, 0, 0, 0.3);
+@color-background-d: rgba(0, 0, 0, 0.5);
 @color-highlight-background: #333;
 @color-dialog-background: #666;
 @color-theme-d: rgba(255, 205, 49, 0.5);
@@ -28,41 +28,3 @@
 @color-text-d: rgba(255, 255, 255, 0.3);
 @color-text-l: rgba(255, 255, 255, 0.5);
 @color-text-ll: rgba(255, 255, 255, 0.8);
-
-// 超出几行省略号
-.mul-ellipsis(@lines, @color: #666){
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  color: @color;
-  -webkit-line-clamp: @lines;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-
-.ellipsis() {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-// 不换行
-.no-wrap() {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-// 扩展点击区域
-.extend-click() {
-  position: relative;
-  &:before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-  }
-}

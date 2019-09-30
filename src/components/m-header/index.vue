@@ -1,16 +1,35 @@
 <template>
   <div class="m-header">
-    <div class="mine">
+    <div class="mine" @click="handleShowSkin">
       <i class="iconfont icon-mine">&#xe610;</i>
     </div>
     <div class="logo"></div>
     <h1 class="text">Vue Music</h1>
+    <Menu @close="handleClose" :show="isSkin" />
   </div>
 </template>
 
 <script>
+import Menu from '../menu'
+
 export default {
-  name: 'M-header'
+  name: 'M-header',
+  components: {
+    Menu
+  },
+  data () {
+    return {
+      isSkin: false
+    }
+  },
+  methods: {
+    handleShowSkin () {
+      this.isSkin = true
+    },
+    handleClose () {
+      this.isSkin = false
+    }
+  }
 }
 </script>
 
