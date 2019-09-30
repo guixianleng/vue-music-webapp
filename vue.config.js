@@ -18,7 +18,7 @@ module.exports = {
     plugins.push(new SkeletonPlugin({
       pathname: resolve('./shell'), // pathname为来存储 shell 文件的地址
       staticDir: resolve('./dist'), // 最好和 `output.path` 相同
-      routes: ['/', '/about'], // 将需要生成骨架屏的路由添加到数组中
+      routes: ['/', '/recommend'], // 将需要生成骨架屏的路由添加到数组中
       port: '7890'
     }))
     config.plugins = [

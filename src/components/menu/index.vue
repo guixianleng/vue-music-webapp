@@ -1,7 +1,6 @@
 <template>
   <div>
     <transition
-      name="skin-transition"
       enter-active-class="animated fadeInLeft"
       leave-active-class="animated fadeOutLeft"
       :duration="{ enter: 1000, leave: 500 }"

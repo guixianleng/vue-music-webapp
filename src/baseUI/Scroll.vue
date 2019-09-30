@@ -1,13 +1,23 @@
 <template>
   <div ref='scroll' class="scroll-view">
-    <slot></slot>
+    <div>
+      <Loading :show="downLoading && pullDown" />
+      <slot></slot>
+      <Loading :show="upLoading && pullUp" />
+    </div>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
+import Loading from 'baseUI/Loading'
+// import { debounce } from 'utils'
 
 export default {
+  name: 'Scroll',
+  components: {
+    Loading
+  },
   props: {
     probeType: {
       type: Number,
@@ -17,11 +27,31 @@ export default {
       type: Boolean,
       default: true
     },
-    listenScroll: {
+    listenScroll: { // 监听滚动事件
       type: Boolean,
       default: false
     },
-    pullup: {
+    pullUp: { // 开启上拉事件
+      type: Boolean,
+      default: false
+    },
+    pullDown: { // 开启下拉事件
+      type: Boolean,
+      default: false
+    },
+    bounceTop: { // 允许下拉
+      type: Boolean,
+      default: true
+    },
+    bounceBottom: { // 允许上拉
+      type: Boolean,
+      default: true
+    },
+    downLoading: { // 开启上拉loading
+      type: Boolean,
+      default: false
+    },
+    upLoading: { // 开启下拉loading
       type: Boolean,
       default: false
     },
@@ -37,44 +67,55 @@ export default {
   },
   methods: {
     _initScroll () {
-      if (!this.$refs.scroll) {
-        return
-      }
+      // Options 参数
+      const { probeType, click, bounceTop, bounceBottom } = this.$props
+      // Events 事件
+      const { listenScroll, pullUp, pullDown } = this.$props
 
-      this.scroll = new BScroll(this.$refs.scroll, {
-        probeType: this.probeType,
-        click: this.click
+      if (!this.$refs.scroll) return
+      this.bScroll = new BScroll(this.$refs.scroll, {
+        probeType: probeType,
+        click: click,
+        stopPropagation: true,
+        // 是否启用上下拉效果
+        bounce: {
+          top: bounceTop,
+          bottom: bounceBottom
+        }
       })
-
-      if (this.listenScroll) {
-        let me = this
-        this.scroll.on('scroll', pos => {
-          me.$emit('scroll', pos)
+      // 监听滚动事件
+      if (listenScroll) {
+        this.bScroll.on('scroll', pos => {
+          this.$emit('scroll', pos)
         })
       }
-
-      if (this.pullup) {
-        this.scroll.on('scrollEnd', () => {
-          if (this.scroll.y <= this.scroll.maxScrollY + 50) {
-            this.$emit('scrollToEnd')
+      // 触底事件
+      if (pullUp) {
+        this.bScroll.on('scrollEnd', () => {
+          if (this.bScroll.y <= (this.bScroll.maxScrollY + 50)) {
+            // debounce(() => { this.$emit('pullUp') }, 200)
+            this.$emit('pullUp')
+          }
+        })
+      }
+      // 上拉事件
+      if (pullDown) {
+        this.bScroll.on('touchEnd', (pos) => {
+          if (pos.y > 50) {
+            // debounce(() => { this.$emit('pullDown') }, 200)
+            this.$emit('pullDown')
           }
         })
       }
     },
-    enable () {
-      this.scroll && this.scroll.enable()
-    },
-    disable () {
-      this.scroll && this.scroll.disable()
-    },
     refresh () {
-      this.scroll && this.scroll.refresh()
+      this.bScroll && this.bScroll.refresh()
     },
     scrollTo () {
-      this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+      this.bScroll && this.bScroll.scrollTo.apply(this.bScroll, arguments)
     },
     scrollToElement () {
-      this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
+      this.bScroll && this.bScroll.scrollToElement.apply(this.bScroll, arguments)
     }
   },
   watch: {

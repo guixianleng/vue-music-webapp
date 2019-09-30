@@ -1,36 +1,39 @@
 <template>
   <div class="recommend">
-    <Scroll>
-      <div>
-        <div class="slider-wrapper" v-if="sliderList.length">
-          <!-- 轮播组件 -->
-          <Slider>
-            <div v-for="(item, index) in sliderList" :key="index">
-              <a :href="item.linkUrl">
-                <img class="needsclick" :src="item.picUrl">
-              </a>
+    <Scroll
+      @scroll="handleScroll"
+      listenScroll
+      pullUp
+      @pullUp="handlePullUp"
+    >
+      <div class="slider-wrapper" v-if="sliderList.length">
+        <!-- 轮播组件 -->
+        <Slider>
+          <div v-for="(item, index) in sliderList" :key="index">
+            <a :href="item.linkUrl">
+              <img class="needsclick" :src="item.picUrl">
+            </a>
+          </div>
+        </Slider>
+      </div>
+      <!-- 推荐列表 -->
+      <div class="recommend-list">
+        <h1 class="recommend-list__title">歌单推荐</h1>
+        <ul>
+          <li :key="item.id" v-for="item in discList" class="recommend-list__item">
+            <div class="icon">
+              <img
+                width="60"
+                height="60"
+                @error="(e) => {e.currentTarget.src = require('../../assets/images/default.png')}"
+                v-lazy="item.imgurl">
             </div>
-          </Slider>
-        </div>
-        <!-- 推荐列表 -->
-        <div class="recommend-list">
-          <h1 class="recommend-list__title">歌单推荐</h1>
-          <ul>
-            <li :key="item.id" v-for="item in discList" class="recommend-list__item">
-              <div class="icon">
-                <img
-                  width="60"
-                  height="60"
-                  @error="(e) => {e.currentTarget.src = require('../../assets/images/default.png')}"
-                  v-lazy="item.imgurl">
-              </div>
-              <div class="text">
-                <h2 class="name" v-html="item.creator.name"></h2>
-                <p class="desc" v-html="item.dissname"></p>
-              </div>
-            </li>
-          </ul>
-        </div>
+            <div class="text">
+              <h2 class="name" v-html="item.creator.name"></h2>
+              <p class="desc" v-html="item.dissname"></p>
+            </div>
+          </li>
+        </ul>
       </div>
     </Scroll>
   </div>
@@ -59,6 +62,12 @@ export default {
     this.handleGetList()
   },
   methods: {
+    handleScroll (pos) {
+      console.log(pos)
+    },
+    handlePullUp () {
+      console.log('下拉')
+    },
     handleGetSilder () {
       getRecommend().then((res) => {
         if (res.code === ERR_OK) {

@@ -1,6 +1,5 @@
 <template>
   <transition
-    name="skin-transition"
     enter-active-class="animated fadeInUp"
     leave-active-class="animated fadeOutDown"
   >
