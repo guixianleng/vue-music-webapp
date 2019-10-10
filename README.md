@@ -1,11 +1,20 @@
 # Vue全家桶 简易版QQ音乐webApp
 
 ## 项目查看运行：
+### 1. 克隆项目并安装依赖
 ```shell
 $ git clone https://gitee.com/LenGxinLove/vue-music-webapp.git
 $ cd vue-music-webapp
 $ npm install
+```
+### 2. 运行api接口
+```shell
+$ cd ./server
 
+$ node app
+```
+### 3.预览项目：
+```shell
 $ npm run serve
 ```
 
