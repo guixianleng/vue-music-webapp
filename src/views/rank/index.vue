@@ -1,6 +1,10 @@
 <template>
   <div class="rank">
-    <Scroll>
+    <Scroll
+      :upLoading="isupLoading"
+      pullUp
+      @pullUp="handlePullUp"
+    >
       <ul>
         <li @click="handleRankDetail(item)" class="item" v-for="item in topList" :key="item.id">
           <div class="icon">
@@ -30,6 +34,7 @@ export default {
   },
   data () {
     return {
+      isupLoading: false,
       topList: []
     }
   },
@@ -37,6 +42,13 @@ export default {
     this._getTopList()
   },
   methods: {
+    handlePullUp () { // 上拉处理事件
+      this.isupLoading = true
+      console.log('上拉')
+      setTimeout(() => {
+        this.isupLoading = false
+      }, 500)
+    },
     handleRankDetail (item) {
       this.$router.push({ path: `/rank/${item.id}` })
     },

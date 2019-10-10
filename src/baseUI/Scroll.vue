@@ -1,9 +1,9 @@
 <template>
   <div ref='scroll' class="scroll-view">
     <div>
-      <Loading :show="downLoading && pullDown" />
+      <loading :show="downLoading" />
       <slot></slot>
-      <Loading :show="upLoading && pullUp" />
+      <loading :show="upLoading" />
     </div>
   </div>
 </template>
@@ -47,11 +47,11 @@ export default {
       type: Boolean,
       default: true
     },
-    downLoading: { // 开启上拉loading
+    upLoading: { // 开启上拉loading
       type: Boolean,
       default: false
     },
-    upLoading: { // 开启下拉loading
+    downLoading: { // 开启下拉loading
       type: Boolean,
       default: false
     },

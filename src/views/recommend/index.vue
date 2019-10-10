@@ -3,6 +3,7 @@
     <Scroll
       @scroll="handleScroll"
       listenScroll
+      :upLoading="isupLoading"
       pullUp
       @pullUp="handlePullUp"
     >
@@ -53,6 +54,7 @@ export default {
   },
   data () {
     return {
+      isupLoading: false, // 开启上拉loading
       sliderList: [], // 推荐轮播图
       discList: [] // 专辑列表
     }
@@ -66,7 +68,11 @@ export default {
       console.log(pos)
     },
     handlePullUp () {
+      this.isupLoading = true
       console.log('上拉')
+      setTimeout(() => {
+        this.isupLoading = false
+      }, 500)
     },
     handleGetSilder () {
       getRecommend().then((res) => {
@@ -108,7 +114,7 @@ export default {
       display: flex;
       box-sizing: border-box;
       align-items: center;
-      padding: 0 20px 20px 20px;
+      padding: 10px 20px;
       .icon {
         flex: 0 0 60px;
         width: 60px;
