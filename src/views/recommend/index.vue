@@ -22,15 +22,15 @@
         <ul>
           <li :key="item.id" v-for="item in discList" class="recommend-list__item">
             <div class="icon">
+              <!-- @error="(e) => {e.currentTarget.src = require('../../assets/images/default.png')}" -->
               <img
                 width="60"
                 height="60"
-                @error="(e) => {e.currentTarget.src = require('../../assets/images/default.png')}"
                 v-lazy="item.imgurl">
             </div>
             <div class="text">
-              <h2 class="name" v-html="item.creator.name"></h2>
-              <p class="desc" v-html="item.dissname"></p>
+              <h2 class="name">{{item.creator.name}}</h2>
+              <p class="desc">{{item.dissname}}</p>
             </div>
           </li>
         </ul>
@@ -66,7 +66,7 @@ export default {
       console.log(pos)
     },
     handlePullUp () {
-      console.log('下拉')
+      console.log('上拉')
     },
     handleGetSilder () {
       getRecommend().then((res) => {

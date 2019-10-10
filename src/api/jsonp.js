@@ -16,7 +16,7 @@ export default function jsonp2 (url, data, option) {
 export function param2 (data) {
   let url = ''
   for (let k in data) {
-    let vlaue = data[k] !== undefined ? data[k] : ''
+    let vlaue = data[k] != undefined ? data[k] : '' // eslint-disable-line
     url += '&' + k + '=' + encodeURIComponent(vlaue)
   }
 

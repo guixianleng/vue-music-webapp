@@ -4,17 +4,22 @@
     leave-active-class="animated fadeOutDown"
   >
     <div class="skin" v-if="show">
+      <nav-bar
+        title="皮肤中心"
+        right-text="取消"
+        @click-right="onClickRight"
+      />
       <div class="container">
         <h1>主题</h1>
         <div class="skins">
-          <div class="skins-item" v-for="skin in skins" :key="skin.key" >
+          <div class="skins-item" v-for="skin in skins" :key="skin.key" @click="handleCurrentTheme(skin.key)">
             <div
               class="skins-color"
               :style="{ 'background-color': skin.color, 'box-shadow': `0 0 1px ${skin.color}` }"
             >
               <i
                 class="iconfont icon-right"
-                :style="{ 'display': skin.key === 'qqGreen' ? '' : 'none' }"
+                v-show="skin.key === currentTheme"
               >&#xe648;</i>
             </div>
             <span>{{skin.name}}</span>
@@ -26,8 +31,13 @@
 </template>
 
 <script>
+import NavBar from 'baseUI/NavBar'
+
 export default {
   name: 'Skin',
+  components: {
+    NavBar
+  },
   props: {
     show: {
       type: Boolean,
@@ -36,6 +46,7 @@ export default {
   },
   data () {
     return {
+      currentTheme: 'qqGreen',
       skins: [
         { key: 'mangoYellow', name: '芒果黄', color: '#FFA500' },
         { key: 'coolBlack', name: '炫酷黑', color: '#212121' },
@@ -47,7 +58,17 @@ export default {
       ]
     }
   },
-  methods: {}
+  methods: {
+    onClickRight () {
+      this.$emit('close', false)
+    },
+    handleCurrentTheme (theme) {
+      this.currentTheme = theme
+      setTimeout(() => {
+        this.$emit('close', false)
+      }, 20)
+    }
+  }
 }
 </script>
 

@@ -1,22 +1,24 @@
 <template>
   <div>
-    <transition
-      enter-active-class="animated fadeInLeft"
-      leave-active-class="animated fadeOutLeft"
+    <!-- <transition
+      enter-active-class="animated rotateInDownLeft"
+      leave-active-class="animated fadeOutDown"
       :duration="{ enter: 1000, leave: 500 }"
-    >
+    > -->
+    <transition name="page">
       <div class="menu-center" v-if="show">
-        <div class="footer">
+        <div class="menu-center--blank" @click="handleClose"></div>
+        <div class="menu-center--footer">
           <div @click="handleCenter">
             皮肤中心
           </div>
-          <div class="footer--close" @click="handleClose">
+          <div class="menu-center--footer__close" @click="handleClose">
             关闭
           </div>
         </div>
       </div>
     </transition>
-    <Skin :show="showSkin" />
+    <Skin :show="showSkin" @close="hanldeCloseSkin" />
   </div>
 </template>
 
@@ -40,11 +42,15 @@ export default {
     }
   },
   methods: {
-    handleClose () {
+    handleClose () { // 关闭菜单
       this.$emit('close')
     },
-    handleCenter () {
+    handleCenter () { // 显示皮肤中心并关闭菜单
       this.showSkin = true
+      this.$emit('close')
+    },
+    hanldeCloseSkin (params) { // 关闭皮肤中心
+      this.showSkin = params
     }
   }
 }
@@ -60,20 +66,25 @@ export default {
   right: 0;
   background-color: @color-background-d;
   z-index: 99;
-  .footer {
+  &--blank {
+    width: 100%;
+    height: 100%;
+  }
+  &--footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     text-align: center;
     font-size: 14px;
+    z-index: 100;
     color: #333;
     background-color: #EEE;
-    div {
+    > div {
       height: 40px;
       line-height: 40px;
       background-color: #FFFFFF;
     }
-    &--close {
+    &__close {
       margin-top: 10px
     }
   }

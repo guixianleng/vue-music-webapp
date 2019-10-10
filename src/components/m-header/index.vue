@@ -1,16 +1,16 @@
 <template>
   <div class="m-header">
-    <div class="mine" @click="handleShowSkin">
+    <div class="mine" @click="handleShowToggle">
       <i class="iconfont icon-mine">&#xe610;</i>
     </div>
     <div class="logo"></div>
     <h1 class="text">Vue Music</h1>
-    <Menu @close="handleClose" :show="isSkin" />
+    <Menu @close="handleShowToggle" :show="isSkin" />
   </div>
 </template>
 
 <script>
-import Menu from '../menu'
+import Menu from 'components/menu'
 
 export default {
   name: 'M-header',
@@ -23,11 +23,8 @@ export default {
     }
   },
   methods: {
-    handleShowSkin () {
-      this.isSkin = true
-    },
-    handleClose () {
-      this.isSkin = false
+    handleShowToggle () {
+      this.isSkin = !this.isSkin
     }
   }
 }

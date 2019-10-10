@@ -61,9 +61,7 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this._initScroll()
-    }, 20)
+    this._initScroll()
   },
   methods: {
     _initScroll () {
@@ -93,7 +91,9 @@ export default {
       if (pullUp) {
         this.bScroll.on('scrollEnd', () => {
           if (this.bScroll.y <= (this.bScroll.maxScrollY + 50)) {
-            // debounce(() => { this.$emit('pullUp') }, 200)
+            // debounce(() => {
+            //   this.$emit('pullUp')
+            // }, 200)
             this.$emit('pullUp')
           }
         })
@@ -102,7 +102,9 @@ export default {
       if (pullDown) {
         this.bScroll.on('touchEnd', (pos) => {
           if (pos.y > 50) {
-            // debounce(() => { this.$emit('pullDown') }, 200)
+            // debounce(() => {
+            //   this.$emit('pullDown')
+            // }, 200)
             this.$emit('pullDown')
           }
         })
