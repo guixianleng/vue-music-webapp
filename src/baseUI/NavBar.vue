@@ -69,11 +69,11 @@ export default {
   flex-wrap: nowrap;
   padding: 0 15px;
   z-index: 99;
-  background-color: @color-background-d;
+  background-color: transparent;
   &--left,
   &--right {
     font-size: 14px;
-    color: @color-white;
+    color: @color-theme;
     .iconfont {
       font-size: 16px;
       vertical-align: middle

@@ -64,14 +64,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '~assets/style/variable';
+@import '~assets/style/theme';
 @import '~assets/style/mixin';
 .rank {
-  position: fixed;
-  width: 100%;
-  top: 87px;
-  bottom: 0;
-  background-color: #fff;
+  .pos-fixed();
   .item {
     display: flex;
     margin: 0 20px;
@@ -96,7 +92,7 @@ export default {
       padding: 0 20px;
       height: 100px;
       overflow: hidden;
-      color: @text-color;
+      color: var(--text-color);
       font-size: @fs-medium;
       border-radius: 0 4px 4px 0;
       .song {

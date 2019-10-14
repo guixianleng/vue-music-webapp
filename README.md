@@ -24,9 +24,10 @@ $ npm run serve
   - [ ] 专辑详情
 - [x] 排行榜
   - [ ] 排行榜详情
-- [ ] 歌手
-  - [ ] 列表
-  - [ ] 条件搜索
+- [x] 歌手
+  - [x] 列表
+  - [x] 字母筛选
+  - [ ] 歌手详情
 - [ ] 搜索功能
   - [ ] 热门搜索
   - [ ] 自定义搜索
@@ -38,13 +39,46 @@ $ npm run serve
   - [ ] 下一首
   - [ ] 暂停
   - [ ] 进度条
-- [ ] 换肤
+- [x] 换肤
 
 ## 功能演示：
+### 1. 换肤
+![](https://raw.githubusercontent.com/guixianleng/images-store/master/images/change-skin.gif)
 
 ## 功能实现介绍：
-### 1. better-scroll移动端scroll神器
-```html
+
+### 1. 换肤功能
+换肤是`基于css自定义变量`来实现的
+
+css自定义变量拥有像less/sass那种定义变量并使用变量的能力，声明变量的时候，变量名前面要加两根连词线（--），在使用的时候只需要使用var()来访问即可
+```css
+@import url('./variable.less');
+body {
+  --theme-color: @color-theme;
+  --theme-bg-color: @color-theme;
+  --bg-color: @background-color;
+  --shortcut-color: @background-shortcut-color;
+  --text-color: @text-color;
+}
+```
+如果要局部使用，只需要将变量定义在元素选择器内部即可。具体使用详见[使用CSS变量](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties)
+
+使用 `css 自定义变量` 的好处就是我们可以使用 `js` 来改变这个变量：
+- document.body.style.setProperty('--primary', '#31C27C') --> 设置变量
+- document.body.style.getPropertyValue('--primary') --> 获取变量
+- document.body.style.removeProperty('--primary') --> 删除变量
+
+```js
+// 换肤
+document.body.style.setProperty('--theme-color', skin.name === '炫酷黑' ? '#B82525' : skin.color)
+document.body.style.setProperty('--theme-bg-color', skin.color)
+document.body.style.setProperty('--bg-color', skin.name === '炫酷黑' ? skin.color : '#fff')
+document.body.style.setProperty('--shortcut-color', skin.name === '炫酷黑' ? '#333' : '#f2f3f4')
+document.body.style.setProperty('--text-color', skin.name === '炫酷黑' ? '#FFF' : '#333')
+```
+
+### 2. better-scroll移动端scroll神器
+```js
 <template>
   <div ref='scroll' class="scroll-view">
     <div>
@@ -177,8 +211,7 @@ export default {
   }
 }
 </script>
-```
-```css
+
 <style lang="less">
   .scroll-view {
     height: 100%;
@@ -187,7 +220,7 @@ export default {
 </style>
 ```
 
-### 2. Animate.css动画库引入使用
+### 3. Animate.css动画库引入使用
 ```shell
  yarn add animate.css
 ```
@@ -217,10 +250,8 @@ Vue.use(animated)
 ```
 *注意*：不要忘记`v-if`，不然看不出效果的哦！
 
-### 3. loading加载动画
-效果：
-
-```html
+### 5. loading加载动画
+```js
 <template>
   <transition
     enter-active-class="animated fadeIn"
@@ -236,9 +267,6 @@ Vue.use(animated)
     </div>
   </transition>
 </template>
-```
-
-```js
 <script>
 export default {
   name: 'Loading',
@@ -254,8 +282,7 @@ export default {
   }
 }
 </script>
-```
-```css
+
 <style lang="less">
 @import "~assets/style/variable";
 .loading {
@@ -267,7 +294,7 @@ export default {
   padding: 10px 0;
   > div {
     display: inline-block;
-    background-color: @color-theme;
+    background-color: var(--theme-bg-color);
     height: 100%;
     width: 2px;
     margin-right: 4px;
@@ -299,4 +326,5 @@ export default {
   }
 }
 </style>
+
 ```

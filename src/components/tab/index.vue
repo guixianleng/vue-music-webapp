@@ -22,25 +22,25 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import "~assets/style/variable";
+@import "~assets/style/theme";
 .tab {
   display: flex;
   height: 40px;
-  line-height: 40px;
+  line-height: 37px;
   font-size: @fs-medium-x;
-  background-color: @background-color;
+  background-color: var(--bg-color);
   .tab-item {
     flex: 1;
     text-align: center;
     .tab-link {
-      color: @text-color;
+      color: var(--text-color);
       display: inline-block;
       width: 100%;
     }
     &.router-link-active {
       .tab-link {
-        color: @color-theme;
-        border-bottom: 2px solid @color-theme;
+        color: var(--theme-color);
+        border-bottom: 2px solid var(--theme-color);
       }
     }
   }

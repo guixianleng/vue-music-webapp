@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "~assets/style/variable";
+@import "~assets/style/theme";
 .loading {
   height: 10px;
   width: 120px;
@@ -41,7 +41,7 @@ export default {
   padding: 10px 0;
   > div {
     display: inline-block;
-    background-color: @color-theme;
+    background-color: var(--theme-bg-color);
     height: 100%;
     width: 2px;
     margin-right: 4px;

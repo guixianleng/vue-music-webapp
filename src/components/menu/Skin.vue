@@ -12,7 +12,7 @@
       <div class="container">
         <h1>主题</h1>
         <div class="skins">
-          <div class="skins-item" v-for="skin in skins" :key="skin.key" @click="handleCurrentTheme(skin.key)">
+          <div class="skins-item" v-for="skin in skins" :key="skin.key" @click="handleCurrentTheme(skin)">
             <div
               class="skins-color"
               :style="{ 'background-color': skin.color, 'box-shadow': `0 0 1px ${skin.color}` }"
@@ -62,8 +62,14 @@ export default {
     onClickRight () {
       this.$emit('close', false)
     },
-    handleCurrentTheme (theme) {
-      this.currentTheme = theme
+    handleCurrentTheme (skin) {
+      this.currentTheme = skin.key
+      // 换肤
+      document.body.style.setProperty('--theme-color', skin.name === '炫酷黑' ? '#B82525' : skin.color)
+      document.body.style.setProperty('--theme-bg-color', skin.color)
+      document.body.style.setProperty('--bg-color', skin.name === '炫酷黑' ? skin.color : '#fff')
+      document.body.style.setProperty('--shortcut-color', skin.name === '炫酷黑' ? '#333' : '#f2f3f4')
+      document.body.style.setProperty('--text-color', skin.name === '炫酷黑' ? '#FFF' : '#333')
       setTimeout(() => {
         this.$emit('close', false)
       }, 20)

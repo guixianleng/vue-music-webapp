@@ -1,27 +1,25 @@
 <template>
   <div class="recommend">
-    <Scroll
-      @scroll="handleScroll"
-      listenScroll
+    <scroll
       :upLoading="isupLoading"
       pullUp
       @pullUp="handlePullUp"
     >
       <div class="slider-wrapper" v-if="sliderList.length">
         <!-- 轮播组件 -->
-        <Slider>
+        <slider>
           <div v-for="(item, index) in sliderList" :key="index">
             <a :href="item.linkUrl">
               <img class="needsclick" :src="item.picUrl">
             </a>
           </div>
-        </Slider>
+        </slider>
       </div>
       <!-- 推荐列表 -->
-      <div class="recommend-list">
+      <div class="recommend-list" v-if="discList.length">
         <h1 class="recommend-list__title">歌单推荐</h1>
         <ul>
-          <li :key="item.id" v-for="item in discList" class="recommend-list__item">
+          <li :key="item.id" v-for="item in discList" class="recommend-list__item" @click="handleRecDetail(item)">
             <div class="icon">
               <!-- @error="(e) => {e.currentTarget.src = require('../../assets/images/default.png')}" -->
               <img
@@ -37,12 +35,15 @@
         </ul>
       </div>
     </Scroll>
+    <!-- 加载状态 -->
+    <loading v-show="!discList.length" middle></loading>
   </div>
 </template>
 
 <script>
 import Slider from 'baseUI/Slider'
 import Scroll from 'baseUI/Scroll'
+import Loading from 'baseUI/Loading_2'
 import { getRecommend, getDiscList } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 
@@ -50,7 +51,8 @@ export default {
   name: 'recommend',
   components: {
     Slider,
-    Scroll
+    Scroll,
+    Loading
   },
   data () {
     return {
@@ -64,39 +66,37 @@ export default {
     this.handleGetList()
   },
   methods: {
-    handleScroll (pos) {
-      console.log(pos)
-    },
-    handlePullUp () {
+    handlePullUp () { // 上拉事件处理
       this.isupLoading = true
       console.log('上拉')
       setTimeout(() => {
         this.isupLoading = false
       }, 500)
     },
-    handleGetSilder () {
+    handleGetSilder () { // 获取轮播列表
       getRecommend().then((res) => {
         if (res.code === ERR_OK) {
           this.sliderList = res.data.slider
         }
       })
     },
-    handleGetList () {
+    handleGetList () { // 获取推荐列表
       getDiscList().then((res) => {
         this.discList = res.data.list
       })
+    },
+    handleRecDetail (item) { // 跳转至详情
+      this.$router.push({ path: `/recommend/${item.dissid}` })
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import '~assets/style/variable';
+@import '~assets/style/theme';
+@import '~assets/style/mixin';
 .recommend {
-  position: fixed;
-  width: 100%;
-  top: 88px;
-  bottom: 0;
+  .pos-fixed();
   .slider-wrapper {
     position: relative;
     width: 100%;
@@ -133,7 +133,7 @@ export default {
         font-size: @fs-medium;
         .name {
           margin-bottom: 8px;
-          color: #333;
+          color: var(--text-color);
         }
         .desc {
           color: #666;
